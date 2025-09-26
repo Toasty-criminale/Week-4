@@ -1,8 +1,5 @@
-import { useState } from 'react';
+import {useEffect, useState } from 'react';
 import './App.css';
-
-import podcasts from './data.js';
-
 import Player from './Player';
 import Search from './Search.jsx';
 import Overview from './Overview.jsx';
@@ -13,6 +10,8 @@ function App() {
   const [activePodcast, setActivePodcast] = useState(null);
   const [activeTitle, setActiveTitle] = useState(null);
   const [queryText, setQueryText] = useState('');
+  const [podcasts, setPodcasts] = useState({});
+
   const rate = (number, guid) => {
     const newRatings = [{ guid: guid, rating: number }, ...ratings];
     // stack overflow. array met unieke object-id's:
@@ -24,6 +23,20 @@ function App() {
       )
     );
   };
+
+  useEffect(() => {
+    const fetchPodcasts = async () => {
+      try {
+        const response = await fetch(`http://localhost:3002/api/podcasts`);
+        const data = await response.json(); // Parse JSON
+        setPodcasts(data); // Save to state
+      } catch (error) {
+        console.error('Fout fetching podcasts:', error);
+      }
+    };
+    fetchPodcasts();
+  }, [queryText]);
+
   return (
     <div className="App">
       <Logo />

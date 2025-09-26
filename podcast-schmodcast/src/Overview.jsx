@@ -25,7 +25,6 @@ export default function Overview({
             .filter((i) =>
               i.title[0].toUpperCase().includes(queryText.toUpperCase())
             )
-            .slice(0, 34)
             .map((e) => (
               <PodcastRow
                 selectEpisode={setActivePodcast}

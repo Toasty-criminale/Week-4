@@ -8,6 +8,13 @@
 audio {
   align-self: flex-end;
   width: 100%;
+  display: none;
+}
+
+.playerButton{
+  align-self: last baseline;
+  size: 20%;
+  width: 100%;
 }
 
 .player-thumbnail {
